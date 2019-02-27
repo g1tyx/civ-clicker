@@ -214,16 +214,16 @@ var cnItems = {
     'Begin worshipping a deity (requires temple)': '开始崇拜神(需要寺庙)',
     'Open the trading post': '开设交易站',
     'Defending enemy troops': '防守敌兵',
-    '': '',
-    '': '',
-    '': '',
-    '': '',
-    '': '',
-    '': '',
-    '': '',
-    '': '',
-    '': '',
-    '': '',
+    'skin': '皮毛',
+    'blacksmith': '铁匠',
+    'Smite Invaders': '打击侵略者',
+    '(per invader killed)': '每个入侵者被杀死',
+    'For Glory!': '为了荣耀！',
+    'Temporarily makes raids more difficult, increases rewards': '暂时使突袭变得更加困难，增加奖励',
+    'Sacrifice 1 worker to gain a random bonus to a resource': '牺牲1名工人获得资源的随机奖励',
+    'Walk Behind the Rows': '走在行后面',
+    'slaying enemies creates temples': '杀死敌人创造寺庙',
+    'harvesting': '收割',
     '': '',
     '': '',
     '': '',
@@ -266,7 +266,7 @@ function cnItem(text) {
     //数组里面没有的，原样返回
     for (var i in cnItems) {
         if (text != i) {
-            console.log("需汉化的英文Item：" + text);
+//            console.log("需汉化的英文Item：" + text);
             return text;
         }
     }
