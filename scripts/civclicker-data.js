@@ -65,7 +65,7 @@ function getCivData () {
 		require:{ wood:30, stone:70 },
 		get effectText() { 
 			var maxPop = 10 + 2*(civData.slums.owned + civData.tenements.owned); 
-			return "+" + maxPop + " max pop."; 
+			return "+" + maxPop + " 人口上限"; 
 		},
 		set effectText(value) { return this.require; }, // Only here for JSLint.
 		update: function() { 
@@ -83,7 +83,7 @@ function getCivData () {
 		require:{ wood: 100 },
 		get effectText() {
 			var barnBonus = ((civData.granaries.owned ? 2 : 1) * 200);
-			return "+" + barnBonus + " food storage"; 
+			return "+" + barnBonus + " 食物存储上限"; 
 		},
 		set effectText(value) { return this.effectText; },
 		update: function() { 

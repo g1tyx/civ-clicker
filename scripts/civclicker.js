@@ -557,7 +557,7 @@ function getPurchaseRowText (purchaseObj) {
 	.forEach(function(elem) { s += getPurchaseCellText(purchaseObj, elem); });
 
 	var enemyFlag = (purchaseObj.alignment == "enemy") ? " enemy" : "";
-	s += "<td class='itemname"+enemyFlag+"'>"+cnItem(purchaseObj.getQtyName(0))+": </td>";
+	s += "<td class='itemname"+enemyFlag+"' width='100'>"+cnItem(purchaseObj.getQtyName(0))+": </td>";
 
 	var action = (isValid(population[objId])) ? "display_pop" : "display"; //xxx Hack
 	s += "<td class='number'><span data-action='"+action+"'>0</span></td>";
@@ -737,7 +737,7 @@ function getDeityRowText(deityId, deityObj)
 
 	return "<tr id='"+deityId+"'>"
 	+ "<td><strong><span id='"+deityId+"Name'>"+deityObj.name+"</span></strong>"
-	+ "<span id="+deityId+"Domain' class='deityDomain'>"+"</td><td>"+idToType(deityObj.domain)+"</span></td>"
+	+ "<span id="+deityId+"Domain' class='deityDomain'>"+"</td><td>"+cnItem(idToType(deityObj.domain))+"</span></td>"
 	+ "<td><span id='" + deityId + "Devotion'>"+deityObj.maxDev+"</span></td></tr>";
 }
 
@@ -1279,7 +1279,7 @@ function spawnMob(mobObj, num){
 	mobObj.owned += num;
 	civData.esiege.owned += num_sge;
 
-	msg = prettify(num) + " " + mobObj.getQtyName(num) + " 发起攻击";  //xxx L10N
+	msg = prettify(num) + " " + cnItem(mobObj.getQtyName(num)) + " 发起攻击";  //xxx L10N
 	if (num_sge > 0) { msg += ", with " + prettify(num_sge) + " " + civData.esiege.getQtyName(num_sge); }  //xxx L10N 
 	gameLog(msg);
 
@@ -2500,7 +2500,7 @@ function doPlague () {
 		return true;
 	} else if (deathRoll > 99.9) { // 0.1% chance that it spreads to a new person
 		spreadPlague(1);
-		gameLog("The sickness spreads to a new citizen.");
+		gameLog("疾病蔓延到一个新公民身上。");
 		return true;
 	} else {
 

@@ -429,7 +429,7 @@ function updateDeity(){
 	var hasDeity = (curCiv.deities[0].name) ? true : false;
 	//Update page with deity details
 	ui.find("#deityAName").innerHTML = curCiv.deities[0].name;
-	ui.find("#deityADomain").innerHTML = getCurDeityDomain() ? ", deity of "+idToType(getCurDeityDomain()) : "";
+	ui.find("#deityADomain").innerHTML = getCurDeityDomain() ? ", 神之 "+cnItem(idToType(getCurDeityDomain())) : "";
 	ui.find("#deityADevotion").innerHTML = civData.devotion.owned;
 
 	// Display if we have an active deity, or any old ones.
