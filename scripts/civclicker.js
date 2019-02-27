@@ -818,7 +818,7 @@ function increment (objId) {
 			var specialMaterial = civData[purchaseObj.specialMaterial];
 			var specialQty =  purchaseObj.increment * (1 + (9 * (civData.guilds.owned)));
 			specialMaterial.owned += specialQty;
-			gameLog("寻找 " + cnItem(specialMaterial.getQtyName(specialQty)) + " 当 " + cnItem(purchaseObj.activity)) +" 时"; // I18N
+			gameLog("寻找 " + cnItem(specialMaterial.getQtyName(specialQty)) + " 当 " + cnItem(purchaseObj.activity)) + " 时"; // I18N
 		}
 	}
 	//Checks to see that resources are not exceeding their limits
@@ -880,7 +880,7 @@ function doPurchase(objId,num){
 		civData.freeLand.owned -= num;
 		// check for overcrowding
 		if (civData.freeLand.owned < 0) {
-			gameLog("You are suffering from overcrowding.");  // I18N
+			gameLog("你正遭受着过度拥挤的折磨.");  // I18N
 			adjustMorale(Math.max(num,-civData.freeLand.owned) * -0.0025 * (civData.codeoflaws.owned ? 0.5 : 1.0));
 		}
 	}
@@ -1359,12 +1359,12 @@ function plunder () {
 	payFor(curCiv.raid.plunderLoot,-1);  // We pay for -1 of these to receive them.
 
 	// Create message to notify player
-	plunderMsg = civSizes[curCiv.raid.last].name + " defeated! ";
-	plunderMsg += "Plundered " + getReqText(curCiv.raid.plunderLoot) + ". ";
+	plunderMsg = cnItem(civSizes[curCiv.raid.last].name) + " 失败! ";
+	plunderMsg += "掠夺 " + getReqText(curCiv.raid.plunderLoot) + ". ";
 	gameLog(plunderMsg);
 
 	ui.show(raidNewsElt, true);
-	raidNewsElt.innerHTML = "Results of last raid: " + plunderMsg;
+	raidNewsElt.innerHTML = "上次突袭结果: " + plunderMsg;
 
 	// Victory outcome has been handled, end raid
 	resetRaiding();
@@ -1482,7 +1482,7 @@ function startTrader(){
 function trade(){
 	//check we have enough of the right type of resources to trade
 	if (!curCiv.trader.materialId || (curCiv.trader.materialId.owned < curCiv.trader.requested)) {
-		gameLog("Not enough resources to trade.");
+		gameLog("没有足够的资源进行贸易。");
 		return;
 	}
 
@@ -1492,7 +1492,7 @@ function trade(){
 	material.owned -= curCiv.trader.requested;
 	++civData.gold.owned;
 	updateResourceTotals();
-	gameLog("Traded " + curCiv.trader.requested + " " + material.getQtyName(curCiv.trader.requested));
+	gameLog("交易了 " + curCiv.trader.requested + " " + cnItem(material.getQtyName(curCiv.trader.requested)));
 }
 
 function isTraderHere () {
@@ -2655,7 +2655,7 @@ function doSack(attacker)
 	if (target.owned > 0){
 		--target.owned;
 		++civData.freeLand.owned;
-		gameLog(target.getQtyName(1) + " " + destroyVerb + " by " + attacker.getQtyName(attacker.owned));
+		gameLog(target.getQtyName(1) + " " + cnItem(destroyVerb) + " 被 " + cnItem(attacker.getQtyName(attacker.owned)));
 	} else {
 		//some will leave
 		var leaving = Math.ceil(attacker.owned * Math.random() * (1/112));
@@ -2750,7 +2750,7 @@ function doRaid(place, attackerID, defenderID) {
 		unitData.filter(function(elem) { return ((elem.alignment == defenderID) && (elem.place == place)); })
 		  .forEach(function(elem) { elem.owned = 0; });
 
-		if (!curCiv.raid.victory) { gameLog("Raid victorious!"); } // Notify player on initial win.
+		if (!curCiv.raid.victory) { gameLog("突袭胜利!"); } // Notify player on initial win.
 		curCiv.raid.victory = true;  // Flag victory for future handling
 	}
 
@@ -2760,7 +2760,7 @@ function doRaid(place, attackerID, defenderID) {
 		unitData.filter(function(elem) { return ((elem.alignment == attackerID) && (elem.place == place)); })
 		  .forEach(function(elem) { elem.owned = 0; });
 
-		gameLog("Raid defeated");  // Notify player
+		gameLog("突袭失败");  // Notify player
 		resetRaiding();
 		return;
 	}

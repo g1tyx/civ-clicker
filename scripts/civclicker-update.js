@@ -334,11 +334,11 @@ function updatePopulation (calc) {
 
 	ui.find("#workerNumMax").innerHTML = prettify(Math.round(maxSpawn));
 
-	spawn1button.title = "Cost: " + prettify(Math.round(calcWorkerCost(1))) + " food";
-	spawn10button.title = "Cost: " + prettify(Math.round(calcWorkerCost(10))) + " food";
-	spawn100button.title = "Cost: " + prettify(Math.round(calcWorkerCost(100))) + " food";
-	spawn1000button.title = "Cost: " + prettify(Math.round(calcWorkerCost(1000))) + " food";
-	spawnMaxbutton.title = "Cost: " + prettify(Math.round(calcWorkerCost(maxSpawn))) + " food";
+	spawn1button.title = "成本: " + prettify(Math.round(calcWorkerCost(1))) + " 食物";
+	spawn10button.title = "成本: " + prettify(Math.round(calcWorkerCost(10))) + " 食物";
+	spawn100button.title = "成本: " + prettify(Math.round(calcWorkerCost(100))) + " 食物";
+	spawn1000button.title = "成本: " + prettify(Math.round(calcWorkerCost(1000))) + " 食物";
+	spawnMaxbutton.title = "成本: " + prettify(Math.round(calcWorkerCost(maxSpawn))) + " 食物";
 
 	ui.find("#workerCost").innerHTML = prettify(Math.round(calcWorkerCost(1)));
 
