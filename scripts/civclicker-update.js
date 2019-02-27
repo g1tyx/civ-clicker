@@ -476,8 +476,8 @@ function addAchievementRows()
 	var s = '';
 	achData.forEach(function(elem) { 
 		s += (
-			'<div class="achievement" title="' + elem.getQtyName() + '">'
-			+ '<div class="unlockedAch" id="' + elem.id + '">' + elem.getQtyName() + '</div>'
+			'<div class="achievement" title="' + cnItem(elem.getQtyName()) + '">'
+			+ '<div class="unlockedAch" id="' + elem.id + '">' + cnItem(elem.getQtyName()) + '</div>'
 			+ '</div>'
 		)
 	});
@@ -498,7 +498,7 @@ function addRaidRows()
 	var s = '';
 	civSizes.forEach(function(elem) { 
 		s += "<button class='raid' data-action='raid' data-target='"+elem.id+"' disabled='disabled'>"+
-		"Raid "+elem.name+"</button>"; //xxxL10N
+		"袭击 "+cnItem(elem.name)+"</button>"; //xxxL10N
 	});
 
 	var group = ui.find("#raidGroup");
