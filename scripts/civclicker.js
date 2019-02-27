@@ -1040,9 +1040,9 @@ function doStarve() {
 		//xxx This is very kind.  Only 0.1% deaths no matter how big the shortage?
 		numberStarve = starve(Math.ceil(population.living/1000));
 		if (numberStarve == 1) { 
-			gameLog("A citizen starved to death"); 
+			gameLog("个公民饿死了"); 
 		} else if (numberStarve > 1) { 
-			gameLog(prettify(numberStarve) + " citizens starved to death"); 
+			gameLog(prettify(numberStarve) + " 公民饿死了"); 
 		}
 		adjustMorale(-0.01);
 		civData.food.owned = 0;
@@ -1993,7 +1993,7 @@ function load (loadType) {
 			loadVar = mergeObj(loadVar, loadVar2);
 			loadVar2 = undefined;
 			//notify user
-			gameLog("Loaded saved game from cookie");
+			gameLog("从Cookie里面加载游戏存档");
 			gameLog("Save system switching to localStorage.");
 		} else {
 			console.log("Unable to find cookie");
@@ -2037,7 +2037,7 @@ function load (loadType) {
 		}
 
 		//notify user
-		gameLog("Loaded saved game from localStorage");
+		gameLog("已从本地存储里面加载游戏存档");
 	}
 	
 	if (loadType === "import") {

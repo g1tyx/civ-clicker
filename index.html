@@ -58,36 +58,36 @@
 <section id="settings" class="drawer">
 	<div class="columns">
 		<div class="column left">
-			<h2>Naming</h2>
-			<button onmousedown="renameCiv()" title="Rename your civilisation">Rename Civilisation</button><br />
-			<button id="renameRuler" onmousedown="renameRuler()" title="Rename yourself">Rename Yourself</button><br />
-			<button id="renameDeity" onmousedown="renameDeity()" title="Rename your deity" disabled="disabled">Rename Current Deity</button>
+			<h2>命名</h2>
+			<button onmousedown="renameCiv()" title="Rename your civilisation">重命名文明</button><br />
+			<button id="renameRuler" onmousedown="renameRuler()" title="Rename yourself">重命名自己</button><br />
+			<button id="renameDeity" onmousedown="renameDeity()" title="Rename your deity" disabled="disabled">重新命名当前的神</button>
 			<br />
-			<h2>Display</h2>
-			<span id="textSize"><button id="smallerText" onmousedown="textSize(-1)" title="Smaller Text">&minus;</button>Text Size
+			<h2>显示</h2>
+			<span id="textSize"><button id="smallerText" onmousedown="textSize(-1)" title="Smaller Text">&minus;</button>文字大小
 			<button id="largerText" onmousedown="textSize(1)" title="Larger Text">+</button></span><br />
 			<br />
-			<label><input id="toggleCustomQuantities" type="checkbox" onclick="onToggleCustomQuantities(this)" title="Custom Quantity"/>Use Custom Quantities</label><br />
-			<label><input id="toggleDelimiters" type="checkbox" onclick="onToggleDelimiters(this)" title="Toggle Delimiters"/>Number Delimiters</label><br />
-			<label><input id="toggleShadow" type="checkbox" onclick="onToggleShadow(this)" title="Toggle Text Shadow"/>Text Shadows</label><br />
-			<label><input id="toggleNotes" type="checkbox" onclick="onToggleNotes(this)" title="Toggle Notes"/>Show Notes</label><br />
-			<label><input id="toggleWorksafe" type="checkbox" onclick="onToggleWorksafe(this)" title="Toggle Worksafe Mode"/>Worksafe Mode</label><br />
-			<label><input id="toggleIcons" type="checkbox" onclick="onToggleIcons(this)" title="Toggle Icons"/>Use Icons</label><br />
+			<label><input id="toggleCustomQuantities" type="checkbox" onclick="onToggleCustomQuantities(this)" title="Custom Quantity"/>使用自定义数量</label><br />
+			<label><input id="toggleDelimiters" type="checkbox" onclick="onToggleDelimiters(this)" title="Toggle Delimiters"/>数字分隔符</label><br />
+			<label><input id="toggleShadow" type="checkbox" onclick="onToggleShadow(this)" title="Toggle Text Shadow"/>文字阴影</label><br />
+			<label><input id="toggleNotes" type="checkbox" onclick="onToggleNotes(this)" title="Toggle Notes"/>显示日志</label><br />
+			<label><input id="toggleWorksafe" type="checkbox" onclick="onToggleWorksafe(this)" title="Toggle Worksafe Mode"/>安全模式</label><br />
+			<label><input id="toggleIcons" type="checkbox" onclick="onToggleIcons(this)" title="Toggle Icons"/>使用图标</label><br />
 		</div>
 
 		<div class="column right">
-			<h2>Save &amp; Load Controls</h2>
-			<button onmousedown="save('manual')" title="Save your current stats">Manual Save</button><br />
-			<label><input id="toggleAutosave" type="checkbox" onclick="onToggleAutosave(this)" title="Autosave"/>Autosave</label><br />
-			<button onmousedown="reset()" title="Reset your game">Reset Game</button><span class="note"><span id="resetNote"><br/>Resetting allows you to </span><span id="resetDeity">gain another deity</span><span id="resetBoth"><br/> and </span><span id="resetWonder">build another Wonder</span></span><br />
+			<h2>保存 &amp; 加载</h2>
+			<button onmousedown="save('manual')" title="Save your current stats">手动保存</button><br />
+			<label><input id="toggleAutosave" type="checkbox" onclick="onToggleAutosave(this)" title="Autosave"/>自动保存</label><br />
+			<button onmousedown="reset()" title="Reset your game">重置游戏</button><span class="note"><span id="resetNote"><br/>重置允许你 </span><span id="resetDeity">获得另一个神</span><span id="resetBoth"><br/> 和 </span><span id="resetWonder">建立另一个奇迹</span></span><br />
 			<br />
-			<button onmousedown="deleteSave()" title="Delete your saved stats">Delete Save File</button><br />
+			<button onmousedown="deleteSave()" title="Delete your saved stats">删除存档文件</button><br />
 			<br />
-			<label>Save game data:</label>
+			<label>保存游戏存档:</label>
 			<textarea id="impexpField"></textarea>
-			<button id="expButton" onclick="save('export')">Export</button>
-			<button id="expSelect" onclick="document.getElementById('impexpField').select();">Select All</button>
-			<button id="impButton" onclick="load('import')">Import</button>
+			<button id="expButton" onclick="save('export')">导出</button>
+			<button id="expSelect" onclick="document.getElementById('impexpField').select();">全选</button>
+			<button id="impButton" onclick="load('import')">导入</button>
 		</div>
 	</div>
 </section>
@@ -357,52 +357,52 @@
 		
 		<div id="deityPane" class="selectPane">
 			<div class="notYet">
-				Your civilization does not yet worship a deity. 
-				<span class="tip">You need to increase piety by assigning clerics at a temple.</span>
+				你们的文明还没有崇拜神。
+				<span class="tip">你需要通过在寺庙指派牧师来增加虔诚。</span>
 			</div>
 			<div id="deityContainer">
-				<h3>Current Deity</h3>
+				<h3>目前的神</h3>
 				<table id="activeDeity">
 					<!-- populated by javascript -->
 				</table>
 			</div>
-			<span id="walkGroup"><br />Walk: <span id="walkStat">...</span> workers per second<br /></span>
+			<span id="walkGroup"><br />行走: <span id="walkStat">...</span> 工人每秒钟<br /></span>
 			<div id="worshipRow">
 				<!-- populated by updatePurchaseRow -->
 			</div>
 			<div id="deityDomains">
 				<p>
-					You may select only one domain for your deity:
+					你只能为你的神选择一个领域:
 				</p>
 				<ul>
 					<li id="battleRow" class="purchaseRow" data-target="battle"> 
 						<span class="upgradetrue" data-quantity="true">
-							<button id="battleDeity" class="xtrue purchaseFor500Piety" onmousedown="selectDeity('battle')">Battle</button>
+							<button id="battleDeity" class="xtrue purchaseFor500Piety" onmousedown="selectDeity('battle')">战斗</button>
 						</span>
-						<span id="battleCost" class="cost">500 piety</span>
+						<span id="battleCost" class="cost">500 虔诚</span>
 					</li>
 					<li id="fieldsRow" class="purchaseRow" data-target="fields">
 						<span class="upgradetrue" data-quantity="true">
-							<button id="fieldsDeity" class="xtrue purchaseFor500Piety" onmousedown="selectDeity('fields')">Fields</button>
+							<button id="fieldsDeity" class="xtrue purchaseFor500Piety" onmousedown="selectDeity('fields')">领域</button>
 						</span>
-						<span id="fieldsCost" class="cost">500 piety</span>
+						<span id="fieldsCost" class="cost">500 虔诚</span>
 					</li>		
 					<li id="underworldRow" class="purchaseRow" data-target="underworld">
 						<span class="upgradetrue" data-quantity="true">
-							<button id="underworldDeity" class="xtrue purchaseFor500Piety" onmousedown="selectDeity('underworld')">Underworld</button>
+							<button id="underworldDeity" class="xtrue purchaseFor500Piety" onmousedown="selectDeity('underworld')">冥界</button>
 						</span>
-						<span id="underworldCost" class="cost">500 piety</span>
+						<span id="underworldCost" class="cost">500 虔诚</span>
 					</li>
 					<li id="catsRow" class="purchaseRow" data-target="cats">
 						<span class="upgradetrue" data-quantity="true">
-							<button id="catsDeity" class="xtrue purchaseFor500Piety" onmousedown="selectDeity('cats')">Cats</button>
+							<button id="catsDeity" class="xtrue purchaseFor500Piety" onmousedown="selectDeity('cats')">猫</button>
 						</span>
-						<span id="catsCost" class="cost">500 piety</span>
+						<span id="catsCost" class="cost">500 虔诚</span>
 					</li>
 				</ul>
 			</div>
 			<div id="battleUpgrades">
-				<h3>The Strength of Battle</h3>
+				<h3>战斗的力量</h3>
 				<table>
 					<tr id="battleAltarRow"><td></td></tr>
 					<tr id="riddleRow"><td></td></tr>
@@ -413,7 +413,7 @@
 				</table>
 			</div>
 			<div id="fieldsUpgrades">
-				<h3>The Bounty of the Fields</h3>
+				<h3>领域的赏金</h3>
 				<table>
 					<tr id="fieldsAltarRow"><td></td></tr>
 					<tr id="blessingRow"><td></td></tr>
@@ -424,7 +424,7 @@
 				</table>
 			</div>
 			<div id="underworldUpgrades">
-				<h3>The Dread Power of the Underworld</h3>
+				<h3>地狱的恐惧力量</h3>
 				<table>
 					<tr id="underworldAltarRow"><td></td></tr>
 					<tr id="bookRow"><td></td></tr>
@@ -435,7 +435,7 @@
 				</table>
 			</div>
 			<div id="catsUpgrades">
-				<h3>The Grace of Cats</h3>
+				<h3>猫的恩典</h3>
 				<table>
 					<tr id="catAltarRow"><td></td></tr>
 					<tr id="lureRow"><td></td></tr>
@@ -446,32 +446,32 @@
 				</table>
 			</div>
 			<div id="pantheonContainer">
-				<h3>Pantheon</h3>
+				<h3>万神殿</h3>
 				<table id="oldDeities"><tr><td></td></tr></table>
 			</div>
 			<div id="iconoclasmGroup">
-				<button id="iconoclasm" onmousedown="iconoclasmList()">Iconoclasm</button>
-				<span id="iconoclasmCost" class="cost">1,000 piety</span>
-				<span id="iconoclasmNote" class="note">: Remove an old deity to gain gold</span><br />
+				<button id="iconoclasm" onmousedown="iconoclasmList()">破坏圣像</button>
+				<span id="iconoclasmCost" class="cost">1,000 虔诚</span>
+				<span id="iconoclasmNote" class="note">: 移除一个老神来获得金币</span><br />
 				<div id="iconoclasmList"></div>
 			</div>
 			<div id="pantheonUpgrades">
-				<h3>Pantheon Upgrades</h3>
+				<h3>万神殿升级</h3>
 				<div id="purchasedPantheon"></div>
 			</div>
 		</div>
 		<div id="conquestPane" class="selectPane">
 			<div class="notYet">
-				You cannot command an army yet because you don't own a battle standard.
-				<span class="tip">Try building a barracks first.</span>
+				你还不能指挥军队，因为你没有作战标准。
+				<span class="tip">首先尝试建造兵营.</span>
 			</div>
 			<span id="standardRow">
 				<!--  -->
 			</span>
 			<div id="conquest">
-				<h3>Army</h3>
+				<h3>军队</h3>
 				<p id="customPartyQuantity">
-					Custom Quantity <input id="partyCustomQty" type="number" min="1" step="1" value="1" />
+					自定义数量 <input id="partyCustomQty" type="number" min="1" step="1" value="1" />
 				</p>
 				<table id="party">
 					<!-- populated by javascript -->
@@ -480,32 +480,32 @@
 					<!-- -->
 				</div>
 				<div id="raidGroup">
-					<h3>To War!</h3>
+					<h3>战争!</h3>
 					<p id="gloryGroup">
-						Glory: <span id="gloryTimer">0</span> seconds remain
+						荣耀: <span id="gloryTimer">0</span> 秒剩余时间
 					</p>
 				</div>
 				<div id="victoryGroup">
-					<h3>Victory!</h3>
-					<button id="plunder" onmousedown="plunder()">Plunder Resources</button><br />
+					<h3>胜利!</h3>
+					<button id="plunder" onmousedown="plunder()">掠夺资源</button><br />
 				</div>
 			</div>
 			<div class="stats">
-				Total Enemies Slain: <span data-action="display" data-target="enemySlain">...</span>
+				被杀死的总敌人: <span data-action="display" data-target="enemySlain">...</span>
 			</div>
 		</div>
 		<div id="tradePane" class="selectPane">
 			<div class="notYet">
-				You do not yet own a trading post. <span class="tip">Try trading with a trader when they (randomly) appear.</span>
+				你还没有一个贸易站。 <span class="tip">当商人(随机)出现时，尝试与他们进行交易。</span>
 			</div>
 			<div id="tradeContainer">
 				Trader offers 1 gold for <span id="tradeRequested">...</span> <span id="tradeType">...</span>
-				for the next <span id="traderTimer">...</span>.
+				下一次到来还有 <span id="traderTimer">...</span>.
 				<br />
-				<button id="tradeButton" onmousedown="trade()">Trade</button>
+				<button id="tradeButton" onmousedown="trade()">贸易</button>
 			</div>
 			<div id="noTrader">
-				No trader visiting
+				没有商人来访
 			</div>
 			<span id="tradeRow">
 				<!-- populated by javascript -->
@@ -513,15 +513,15 @@
 			<div id="tradeUpgradeContainer">
 				<span id="currencyRow"></span>
 				<span id="commerceRow"></span>
-				<h4>Buy Resources (1 gold)</h4>
-				<button class="tradeResource" onmousedown="buy('food')">Buy 5000 Food</button><br />
-				<button class="tradeResource" onmousedown="buy('wood')">Buy 5000 Wood</button><br />
-				<button class="tradeResource" onmousedown="buy('stone')">Buy 5000 Stone</button><br />
-				<button class="tradeResource" onmousedown="buy('skins')">Buy 500 Skins</button><br />
-				<button class="tradeResource" onmousedown="buy('herbs')">Buy 500 Herbs</button><br />
-				<button class="tradeResource" onmousedown="buy('ore')">Buy 500 Ore</button><br />
-				<button class="tradeResource" onmousedown="buy('leather')">Buy 250 Leather</button><br />
-				<button class="tradeResource" onmousedown="buy('metal')">Buy 250 Metal</button><br />
+				<h4>购买资源 (1 黄金)</h4>
+				<button class="tradeResource" onmousedown="buy('food')">购买 5000 食物</button><br />
+				<button class="tradeResource" onmousedown="buy('wood')">购买 5000 木头</button><br />
+				<button class="tradeResource" onmousedown="buy('stone')">购买 5000 石头</button><br />
+				<button class="tradeResource" onmousedown="buy('skins')">购买 500 皮毛</button><br />
+				<button class="tradeResource" onmousedown="buy('herbs')">购买 500 草药</button><br />
+				<button class="tradeResource" onmousedown="buy('ore')">购买 500 矿石</button><br />
+				<button class="tradeResource" onmousedown="buy('leather')">购买 250 皮革</button><br />
+				<button class="tradeResource" onmousedown="buy('metal')">购买 250 金属</button><br />
 			</div>
 		</div>
 		<div id="achievementsPane" class="selectPane">
