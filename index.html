@@ -106,21 +106,21 @@
 				<tbody>
 					<tr>
 						<td>
-							<img src="images/backup.png" class="icon icon-lg" alt="Population"/>
-							<label>Population:</label>
+							<img src="images/backup.png" class="icon icon-lg" alt="人口"/>
+							<label>人口:</label>
 						</td>
 						<td class="number"><span data-action="display_pop" data-target="living">...</span></td>
 						<td class="number maxNumber">
-							/ max: <span data-action="display_pop" data-target="limit">...</span>
+							/ 最大: <span data-action="display_pop" data-target="limit">...</span>
 						</td>
 						<td class="note">
-							Build more housing to grow your civilization
+							建造更多的住房来发展你的文明
 						</td>
 					</tr>
 					<tr id="zombieWorkers">
 						<td>
-							<img src="images/shambling-zombie.png" class="icon icon-lg" alt="Zombies"/>
-							<label>Zombies:</label>
+							<img src="images/shambling-zombie.png" class="icon icon-lg" alt="僵尸"/>
+							<label>僵尸:</label>
 						</td>
 						<td class="number"><span data-action="display" data-target="zombie">...</span></td>
 						<td></td>
@@ -128,16 +128,16 @@
 					</tr>
 					<tr>
 						<td>
-							<img src="images/smitten.png" class="icon icon-lg" alt="Happiness"/>
-							<label>Happiness:</label>
+							<img src="images/smitten.png" class="icon icon-lg" alt="快乐值"/>
+							<label>快乐值:</label>
 						</td>
 						<td colspan="3" id="morale">
 							<ol class="happinessRanks">
-								<li>Blissful</li>
-								<li>Happy</li>
-								<li>Content</li>
-								<li>Unhappy</li>
-								<li>Angry</li>
+								<li>幸福</li>
+								<li>开心</li>
+								<li>满足</li>
+								<li>不科学</li>
+								<li>生气</li>
 							</ol>
 						</td>
 					</tr>
@@ -151,33 +151,33 @@
 		</div>
 		<div id="populationCreate">
 			<div>
-				Recruit new citizens as
+				招募新市民担任
 				<select type="dropdown" id="newSpawnJobSelection">
-					<option value="unemployed">Idle Citizens</option>
-					<option value="farmer">Farmers</option>
-					<option value="woodcutter">Woodcutters</option>
-					<option value="miner">Miners</option>
+					<option value="unemployed">闲置的公民</option>
+					<option value="farmer">农民</option>
+					<option value="woodcutter">伐木工</option>
+					<option value="miner">矿工</option>
 				</select>
-				<span class="cost">for <span id="workerCost">...</span> food</span><span class="note">.</span>
+				<span class="cost">需要 <span id="workerCost">...</span> 食物</span><span class="note">.</span>
 				<button class="unit1" id="spawn1button" onmousedown="spawn(1)">+1</button>
 				<button class="unit10" id="spawn10button" onmousedown="spawn(10)">+10</button>
 				<button class="unit100" id="spawn100button" onmousedown="spawn(100)">+100</button>
 				<button class="unit1000" id="spawn1000button" onmousedown="spawn(1000)">+1k</button>
-				<button class="unitInfinity" id="spawnMaxbutton" onmousedown="spawn(Infinity)">+<span id="workerNumMax">Max</span></button>
+				<button class="unitInfinity" id="spawnMaxbutton" onmousedown="spawn(Infinity)">+<span id="workerNumMax">最大</span></button>
 			</div>
 			<div id="customSpawnQuantity">
-				<button id="spawnCustomButton" onmousedown="spawn('custom')">Recruit Citizens</button><input id="spawnCustomQty" type="number" min="1" step="1" value="1" />
+				<button id="spawnCustomButton" onmousedown="spawn('custom')">招募公民</button><input id="spawnCustomQty" type="number" min="1" step="1" value="1" />
 			</div>
 		</div>
 		<p id="customJobQuantity">
-			Custom Quantity <input id="homeCustomQty" type="number" min="1" step="1" value="1" />
+			自定义数量 <input id="homeCustomQty" type="number" min="1" step="1" value="1" />
 		</p>
 		<table id="jobs">
 			<!-- populated by javascript -->
 		</table>
 	</div>
 	<div id="eventsContainer" class="civSection">
-		<h3>Events</h3>
+		<h3>事件</h3>
 		<table id="logTable">
 			<tr id="log0"><td id="logT"></td><td id="logL"></td><td id="logR"></td></tr>
 			<tr id="log1"><td colspan="3"></td></tr>
@@ -201,7 +201,7 @@
 				<tr>
 					<td>
 						<img src="images/skins.png" class="icon icon-lg" alt="Skins"/>
-						<label>Skins:</label>
+						<label>皮毛:</label>
 					</td>
 					<td>
 						<span class="number" data-action="display" data-target="skins">0</span>
@@ -211,7 +211,7 @@
 					</td>
 					<td>
 						<img src="images/leather.png" class="icon icon-lg" alt="Leather"/>
-						<label>Leather:</label>
+						<label>皮革:</label>
 					</td>
 					<td>
 						<span class="number" data-action="display" data-target="leather">0</span>
@@ -223,7 +223,7 @@
 				<tr>
 					<td>
 						<img src="images/herbs.png" class="icon icon-lg" alt="Herbs"/>
-						<label>Herbs:</label>
+						<label>草药:</label>
 					</td>
 					<td>
 						<span class="number" data-action="display" data-target="herbs">0</span>
@@ -233,7 +233,7 @@
 					</td>
 					<td>
 						<img src="images/piety.png" class="icon icon-lg" alt="Piety"/>
-						<label>Piety:</label>
+						<label>虔诚:</label>
 					</td>
 					<td>
 						<span class="number" data-action="display" data-target="piety">0</span>
@@ -245,7 +245,7 @@
 				<tr>
 					<td>
 						<img src="images/ore.png" class="icon icon-lg" alt="Ore"/>
-						<label>Ore:</label>
+						<label>矿石:</label>
 					</td>
 					<td>
 						<span class="number" data-action="display" data-target="ore">0</span>
@@ -288,27 +288,27 @@
 	<div id="panesSelectors" class="civSection">
 		<div id="selectors" class="panesTabs">
 			<div id="buildingsSelect" class="paneSelector selected" data-target="buildingsPane" onclick="paneSelect(this)">
-				Buildings
+				建造
 				<div class="alert">!</div>
 			</div>
 			<div id="upgradesSelect" class="paneSelector" data-target="upgradesPane" onclick="paneSelect(this)">
-				Upgrades
+				升级
 				<div class="alert">!</div>
 			</div>
 			<div id="deitySelect" class="paneSelector" data-target="deityPane" onclick="paneSelect(this)">
-				Deity
+				神祗
 				<div class="alert">!</div>
 			</div>
 			<div id="conquestSelect" class="paneSelector" data-target="conquestPane" onclick="paneSelect(this)">
-				Conquest
+				征服
 				<div class="alert">!</div>
 			</div>
 			<div id="tradeSelect" class="paneSelector" data-target="tradePane" onclick="paneSelect(this)">
-				Trade
+				贸易
 				<div class="alert">!</div>
 			</div>
 			<div id="achievementsSelect" class="paneSelector" data-target="achievementsPane" onclick="paneSelect(this)">
-				Achievements
+				成就
 				<div class="alert">!</div>
 			</div>
 		</div>

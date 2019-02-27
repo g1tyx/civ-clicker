@@ -331,7 +331,7 @@ function getReqText(costObj, qty)
 		num = (typeof costObj[i] == "function") ? (costObj[i](qty)) : (costObj[i]*qty);
 		if (!num) { continue; }
 		if (text) { text += ", "; }
-		text += prettify(Math.round(num)) + " " + civData[i].getQtyName(num);
+		text += prettify(Math.round(num)) + " " + cnItem(civData[i].getQtyName(num));
 	}
 
 	return text;
@@ -459,7 +459,7 @@ function getCostNote(civObj)
 	var separator = (reqText && effectText) ? ": " : "";
 
 	return "<span id='"+civObj.id+"Cost' class='cost'>" + reqText + "</span>"
-		 + "<span id='"+civObj.id+"Note' class='note'>" + separator + civObj.effectText + "</span>";
+		 + "<span id='"+civObj.id+"Note' class='note'>" + separator + cnItem(civObj.effectText) + "</span>";
 }
 
 // Number format utility functions.
@@ -557,7 +557,7 @@ function getPurchaseRowText (purchaseObj) {
 	.forEach(function(elem) { s += getPurchaseCellText(purchaseObj, elem); });
 
 	var enemyFlag = (purchaseObj.alignment == "enemy") ? " enemy" : "";
-	s += "<td class='itemname"+enemyFlag+"'>"+purchaseObj.getQtyName(0)+": </td>";
+	s += "<td class='itemname"+enemyFlag+"'>"+cnItem(purchaseObj.getQtyName(0))+": </td>";
 
 	var action = (isValid(population[objId])) ? "display_pop" : "display"; //xxx Hack
 	s += "<td class='number'><span data-action='"+action+"'>0</span></td>";
