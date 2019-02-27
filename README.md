@@ -1,4 +1,4 @@
-# 文明放置（Civ Clicker）
+# 文明点击（Civ Clicker）
 
 
 汉化版：http://likexia.gitee.io/civ-clicker

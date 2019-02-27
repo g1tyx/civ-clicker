@@ -263,7 +263,7 @@ function updatePopulation (calc) {
 
 	//As population increases, various things change
 	// Update our civ type name
-	ui.find("#civType").innerHTML = getCivType();
+	ui.find("#civType").innerHTML = cnItem(getCivType());
 
 	//Unlocking interface elements as population increases to reduce unnecessary clicking
 	//xxx These should be reset in reset()

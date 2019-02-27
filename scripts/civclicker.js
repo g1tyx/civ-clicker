@@ -489,13 +489,13 @@ function getResourceRowText(purchaseObj)
 	var s = (
 		'<tr id="'+ objId + 'Row" class="purchaseRow" data-target="'+ objId + '">'
 		+ '<td>'
-		+ '<img src="images/'+objId+'.png" class="icon icon-lg" alt="'+objName+'"/>'
-		+ '<button data-action="increment">' + purchaseObj.verb + '</button>'
-		+ '<label>' + objName + ':</label>'
+		+ '<img src="images/'+objId+'.png" class="icon icon-lg" alt="'+cnItem(objName)+'"/>'
+		+ '<button data-action="increment">' + cnItem(purchaseObj.verb) + '</button>'
+		+ '<label>' + cnItem(objName) + ':</label>'
 		+ '</td>'
 		+ '<td class="number mainNumber"><span data-action="display">.</span></td>'
-		+ '<td class="number maxNumber">/ max: <span id="max'+objId+'">...</span></td>'
-		+ '<td class="number net"><span data-action="displayNet">..</span>/s</td>'
+		+ '<td class="number maxNumber">/ 最大: <span id="max'+objId+'">...</span></td>'
+		+ '<td class="number net"><span data-action="displayNet">..</span>/秒</td>'
 		+ '</tr>'
 	);
 	return s;
@@ -2158,23 +2158,23 @@ function save(savetype){
 
 		//Update console for debugging, also the player depending on the type of save (manual/auto)
 		if (savetype == "auto"){
-			console.log("Autosave");
-			gameLog("Autosaved");
+			console.log("自动保存");
+			gameLog("自动保存");
 		} else if (savetype == "manual"){
-			alert("Game Saved");
-			console.log("Manual Save");
-			gameLog("Saved game");
+			alert("游戏已保存");
+			console.log("手动保存");
+			gameLog("游戏已保存");
 		}
 	} catch(err) {
 		handleStorageError(err);
 
 		if (savetype == "auto"){
-			console.log("Autosave Failed");
-			gameLog("Autosave Failed");
+			console.log("自动保存失败");
+			gameLog("自动保存失败");
 		} else if (savetype == "manual"){
-			alert("Save Failed!");
-			console.log("Save Failed");
-			gameLog("Save Failed");
+			alert("保存失败!");
+			console.log("保存失败");
+			gameLog("保存失败");
 		}
 		return false;
 	}
@@ -2205,7 +2205,7 @@ function deleteSave(){
 function renameCiv(newName){
 	//Prompts player, uses result as new civName
 	while (!newName) {
-		newName = prompt("Please name your civilization",(newName || curCiv.civName || "Woodstock"));
+		newName = prompt("请为您的文明起个名字",(newName || curCiv.civName || "Woodstock"));
 		if ((newName === null)&&(curCiv.civName)) { return; } // Cancelled
 	}
 
@@ -2228,7 +2228,7 @@ function renameRuler(newName){
 	if (curCiv.rulerName == "Cheater") { return; } // Reputations suck, don't they?
 	//Prompts player, uses result as rulerName
 	while (!newName || haveDeity(newName)!==false) {
-		newName = prompt("What is your name?",(newName || curCiv.rulerName || "Orteil"));
+		newName = prompt("你叫什么名字？",(newName || curCiv.rulerName || "Orteil"));
 		if ((newName === null)&&(curCiv.rulerName)) { return; } // Cancelled
 		if (haveDeity(newName)!==false) {
 			alert("That would be a blasphemy against the deity "+newName+".");
