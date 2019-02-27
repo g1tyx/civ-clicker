@@ -92,9 +92,9 @@ function updateAfterReset () {
 function updateTrader () {
 	var isHere = isTraderHere();
 	if (isHere) {
-		ui.find("#tradeType").innerHTML = civData[curCiv.trader.materialId].getQtyName(curCiv.trader.requested);
+		ui.find("#tradeType").innerHTML = cnItem(civData[curCiv.trader.materialId].getQtyName(curCiv.trader.requested));
 		ui.find("#tradeRequested").innerHTML = prettify(curCiv.trader.requested);
-		ui.find("#traderTimer").innerHTML = curCiv.trader.timer + " second" + ((curCiv.trader.timer != 1) ? "s" : "");
+		ui.find("#traderTimer").innerHTML = curCiv.trader.timer + " 秒" + ((curCiv.trader.timer != 1) ? "" : "");
 	} else {
 		
 	}

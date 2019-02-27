@@ -951,7 +951,7 @@ function calcZombieCost(num){
 // Create a cat
 function spawnCat() {
 	++civData.cat.owned;
-	gameLog("Found a cat!");
+	gameLog("找到一只猫!");
 }
 
 // Creates or destroys workers
