@@ -538,7 +538,7 @@ function getPurchaseCellText(purchaseObj, qty, inTable) {
 	var s = "<"+tagName+" class='"+className+abs(qty)+"' data-quantity='"+qty+"' >";
 	if (allowPurchase()) 
 	{ 
-		s +="<button class='x"+abs(qty)+"' data-action='purchase'"+" disabled='disabled'>"+fmtqty(qty)+"</button>"; 
+		s +="<button class='x"+abs(qty)+"' data-action='purchase'"+" disabled='disabled'>"+cnItem(fmtqty(qty))+"</button>"; 
 	}
 	s += "</"+tagName+">";
 	return s;
@@ -640,7 +640,7 @@ function getPantheonUpgradeRowText(upgradeObj)
 	// an altar, a prayer, or a pantheon upgrade.
 	s += ((upgradeObj.subType == "prayer") ? (upgradeObj.id+"()")
 										   : ("onPurchase(this)"));
-	s += "\">" + upgradeObj.getQtyName() + "</button>";
+	s += "\">" + cnItem(upgradeObj.getQtyName()) + "</button>";
 	s += (isValid(upgradeObj.extraText) ? upgradeObj.extraText : "")+"</td>";
 	s += "<td>" + getCostNote(upgradeObj) + "</td>";
 	s += "</tr>";
