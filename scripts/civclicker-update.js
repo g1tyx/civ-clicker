@@ -571,7 +571,7 @@ function updateWonder () {
 	ui.show("#upgradesSelect .alert", isLimited);
 
 	if (lowItem) { 
-		ui.find("#limited").innerHTML = " by low " + lowItem.getQtyName(); 
+		ui.find("#limited").innerHTML = " 缺少 " + cnItem(lowItem.getQtyName()); 
 	}
 
 	if (curCiv.curWonder.progress >= 100) {

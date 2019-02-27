@@ -557,7 +557,7 @@ function getPurchaseRowText (purchaseObj) {
 	.forEach(function(elem) { s += getPurchaseCellText(purchaseObj, elem); });
 
 	var enemyFlag = (purchaseObj.alignment == "enemy") ? " enemy" : "";
-	s += "<td class='itemname"+enemyFlag+"' width='100'>"+cnItem(purchaseObj.getQtyName(0))+": </td>";
+	s += "<td class='itemname"+enemyFlag+"' width='70'>"+cnItem(purchaseObj.getQtyName(0))+": </td>";
 
 	var action = (isValid(population[objId])) ? "display_pop" : "display"; //xxx Hack
 	s += "<td class='number'><span data-action='"+action+"'>0</span></td>";
@@ -767,7 +767,7 @@ function testAchievements(){
 		if (civData[achObj.id].owned) { return true; }
 		if (isValid(achObj.test) && !achObj.test()) { return false; }
 		civData[achObj.id].owned = true;
-		gameLog("Achievement Unlocked: "+achObj.getQtyName());
+		gameLog("成就已解锁: "+cnItem(achObj.getQtyName()));
 		return true;
 	});
 
@@ -818,7 +818,7 @@ function increment (objId) {
 			var specialMaterial = civData[purchaseObj.specialMaterial];
 			var specialQty =  purchaseObj.increment * (1 + (9 * (civData.guilds.owned)));
 			specialMaterial.owned += specialQty;
-			gameLog("Found " + specialMaterial.getQtyName(specialQty) + " while " + purchaseObj.activity); // I18N
+			gameLog("寻找 " + cnItem(specialMaterial.getQtyName(specialQty)) + " 当 " + cnItem(purchaseObj.activity)) +" 时"; // I18N
 		}
 	}
 	//Checks to see that resources are not exceeding their limits
@@ -1430,7 +1430,7 @@ function startWonder(){
 function renameWonder(){
 	// Can't rename before you start, or after you finish.
 	if (curCiv.curWonder.stage === 0 || curCiv.curWonder.stage > 2) { return; }
-	var n = prompt("Please name your Wonder:",curCiv.curWonder.name);
+	var n = prompt("请给你的奇迹命名:",curCiv.curWonder.name);
 	if (!n) { return; }
 	curCiv.curWonder.name = n;
 	var wp = ui.find("#wonderNameP");
@@ -2141,7 +2141,7 @@ function save(savetype){
 		var compressed = LZString.compressToBase64(savestring);
 		console.log("Compressed save from " + savestring.length + " to " + compressed.length + " characters");
 		ui.find("#impexpField").value = compressed;
-		gameLog("Exported game to text");
+		gameLog("导出游戏存档为文本");
 		return true;
 	}
 
