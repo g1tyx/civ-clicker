@@ -141,7 +141,7 @@ var cnItems = {
     'wolf': '狼',
     'Cure sick workers': '治疗生病的工人',
     'Use healers and herbs to cure them': '使用治疗师和草药来治愈他们',
-    '': '',
+    'farmer': '农民',
     '': '',
     '': '',
     '': '',

@@ -748,11 +748,11 @@ function makeDeitiesTables()
 	ui.find("#activeDeity").innerHTML = '<tr id="' + deityId + '">'
 	+ '<td><strong><span id="' + deityId + 'Name">'+'</span></strong>'
 	+ '<span id="' + deityId + 'Domain" class="deityDomain">' + '</span></td>'
-	+ '<td>Devotion: <span id="' + deityId + 'Devotion">'+'</span></td></tr>';
+	+ '<td>奉献: <span id="' + deityId + 'Devotion">'+'</span></td></tr>';
 
 	// Display the table of prior deities.
 	//xxx Change this to <th>, need to realign left.
-	var s = "<tr><td><b>Name</b></td><td><b>Domain</b></td><td><b>Max Devotion</b></td></tr>";
+	var s = "<tr><td><b>名称</b></td><td><b>领域</b></td><td><b>最大奉献</b></td></tr>";
 	curCiv.deities.forEach(function(elem, i) {
 		if ((i===0)&&(!elem.name)) { return; } // Don't display current deity-in-waiting.
 		s += getDeityRowText("deity"+i,elem);
@@ -2494,7 +2494,7 @@ function doPlague () {
 
 	if (deathRoll <= 5) { // 5% chance that 1 person dies
 		killUnit(unitInfected);
-		gameLog("A sick " + unitInfected.singular + " dies.");
+		gameLog("一个生病的 " + cnItem(unitInfected.singular) + " 死掉了.");
 		// TODO: Decrease happiness
 		calculatePopulation();
 		return true;
@@ -2541,7 +2541,7 @@ function doCorpses() {
 	infected = spreadPlague(infected);
 	if (infected > 0) {
 		calculatePopulation();
-		gameLog(prettify(infected) + " citizens got sick"); //notify player
+		gameLog(prettify(infected) + " 市民生病了。"); //notify player
 	}
 
 	// Corpse has a 50-50 chance of decaying (at least there is a bright side)
