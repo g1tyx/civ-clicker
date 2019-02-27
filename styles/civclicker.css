@@ -52,7 +52,8 @@ a {
 .cols {
 	/* column-count: 2; */
 	display: block;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	margin: 0 auto;
 	clear: both;
 	width: 80%;
@@ -65,7 +66,8 @@ a {
 .column,
 .col {
 	display: block;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	width: 50%;
 	float: left;
 }
@@ -124,7 +126,8 @@ a {
 
 
 #strip{
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	padding: 0 1em;
 	text-shadow: none;
 	width:100%;
@@ -220,7 +223,8 @@ button {
 	font-family: 'Suez One', serif;
 	border: 1px solid rgba(0,0,0,0.5);
 	background-color: rgba(255,255,255,0.9);
-	box-shadow: 0 0.2em 0 rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 0.2em 0 rgba(0,0,0,0.1);
+	        box-shadow: 0 0.2em 0 rgba(0,0,0,0.1);
 	margin: 0.25em 0em 0.25em 0;
 	padding: 0.25em 0.5em;
 	font-size: 1.0em;
@@ -238,7 +242,8 @@ button {
 		background-color: rgba(255,255,255,0.25);
 		border-color: rgba(0,0,0,0.1);
 		font-weight: normal;
-		box-shadow: none;
+		-webkit-box-shadow: none;
+		        box-shadow: none;
 	}
 	button:active, button:active:hover {
 		background-color: rgba(200,255,180,0.9);
@@ -342,7 +347,8 @@ button {
 	border-radius: 1.5em;
 	font-family: 'Suez One', serif;
 	color: #333;
-	box-shadow: 0 0.1em 0.1em rgba(0,0,0,0.2);
+	-webkit-box-shadow: 0 0.1em 0.1em rgba(0,0,0,0.2);
+	        box-shadow: 0 0.1em 0.1em rgba(0,0,0,0.2);
 	z-index: 2;
 }
 
@@ -350,7 +356,8 @@ button {
 	display: none;
 	padding: 1.5em 1em 2em 1em;
 	background-color: rgba(255,255,255,0.5);
-	box-shadow: 0 0.1em 0.1em rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 0.1em 0.1em rgba(0,0,0,0.1);
+	        box-shadow: 0 0.1em 0.1em rgba(0,0,0,0.1);
 }
 	.selectPane.selected {
 		/* Note that this will cause a problem for non-block elements */
@@ -488,14 +495,16 @@ button {
 	width:20px;
 }
 .unlockedAch{
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	border: 5px ridge #FBDA20;
 	width: 70px;
 	height: 70px;
 	padding: 0.2em;
 	margin: -5px 0 0 -5px;
 	font-size: 0.9em;
-	box-shadow: 0 0.25em 0.3em rgba(0,0,0,0.25), inset 0 0 0.5em rgba(0,0,0,0.25);
+	-webkit-box-shadow: 0 0.25em 0.3em rgba(0,0,0,0.25), inset 0 0 0.5em rgba(0,0,0,0.25);
+	        box-shadow: 0 0.25em 0.3em rgba(0,0,0,0.25), inset 0 0 0.5em rgba(0,0,0,0.25);
 	font-weight: normal;
 	background-color: #FBDA20;
 	display: none; /* Initially */
@@ -554,7 +563,8 @@ button {
 #tradeContainer {
 	background-color: #dd9;
 	border-radius: 0.5em;
-	box-shadow: 0 0.1em 0.1em rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 0.1em 0.1em rgba(0,0,0,0.1);
+	        box-shadow: 0 0.1em 0.1em rgba(0,0,0,0.1);
 	border: solid 2px white;
 }
 #noTrader {
@@ -717,8 +727,8 @@ button {
 		margin: 0;
 	}
 	ol.happinessRanks li {
-		color: #fff;
-		opacity: 0.5;
+		color: #000;
+		opacity: 0.8;
 		display: inline-block;
 		padding: 0.1em 0.5em;
 		background-color: rgba(0,0,0,0.05);

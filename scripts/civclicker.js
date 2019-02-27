@@ -663,7 +663,7 @@ function setPantheonUpgradeRowText(upgradeObj)
 function addUpgradeRows()
 {
 	ui.find("#upgradesPane").innerHTML += 
-	   "<h3>Purchased Upgrades</h3>" + "<div id='purchasedUpgrades'></div>";
+	   "<h3>已购买升级</h3>" + "<div id='purchasedUpgrades'></div>";
 
 	// Fill in any pre-existing stubs.
 	upgradeData.forEach( function(elem){ 
@@ -690,8 +690,8 @@ function addUpgradeRows()
 
 	upgradeData.forEach( function(upgradeObj){ 
 		text = "<span id='P"+upgradeObj.id +"' class='Pupgrade'>"
-			+"<strong>"+upgradeObj.getQtyName()+"</strong>"
-			+" &ndash; "+upgradeObj.effectText+"<br/></span>";
+			+"<strong>"+cnItem(upgradeObj.getQtyName())+"</strong>"
+			+" &ndash; "+cnItem(upgradeObj.effectText)+"<br/></span>";
 		if (upgradeObj.subType == "pantheon") { pantheonUpgStr += text; }
 		else { standardUpgStr += text; }
 	});
