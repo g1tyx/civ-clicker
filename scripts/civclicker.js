@@ -1279,7 +1279,7 @@ function spawnMob(mobObj, num){
 	mobObj.owned += num;
 	civData.esiege.owned += num_sge;
 
-	msg = prettify(num) + " " + mobObj.getQtyName(num) + " attacked";  //xxx L10N
+	msg = prettify(num) + " " + mobObj.getQtyName(num) + " 发起攻击";  //xxx L10N
 	if (num_sge > 0) { msg += ", with " + prettify(num_sge) + " " + civData.esiege.getQtyName(num_sge); }  //xxx L10N 
 	gameLog(msg);
 
@@ -2615,7 +2615,7 @@ function doSlaughter(attacker)
 			if (attacker.species != "animal") { 
 				civData.corpses.owned += 1; 
 			} 
-			gameLog(targetUnit.getQtyName(1) + " " + killVerb + " by " + attacker.getQtyName(attacker.owned));
+			gameLog(cnItem(targetUnit.getQtyName(1)) + " 被 " + cnItem(attacker.getQtyName(attacker.owned))+ " " + cnItem(killVerb) );
 		}
 	} else { // Attackers slowly leave once everyone is dead
 		var leaving = Math.ceil(attacker.owned * Math.random() * attacker.killFatigue);
