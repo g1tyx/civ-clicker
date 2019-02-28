@@ -2630,8 +2630,8 @@ function doLoot(attacker)
 	var target = lootable[Math.floor(Math.random() * lootable.length)];
 	var stolenQty = Math.floor((Math.random() * 1000)); //Steal up to 1000.
 	stolenQty = Math.min(stolenQty,target.owned);
-	if (stolenQty > 0) { gameLog(stolenQty + " " + target.getQtyName(stolenQty) 
-						 + " stolen by " + attacker.getQtyName(attacker.owned)); }
+	if (stolenQty > 0) { gameLog(stolenQty + " " + cnItem(target.getQtyName(stolenQty)) 
+						 + " 被 " + cnItem(attacker.getQtyName(attacker.owned)) + " 偷走了。"); }
 	target.owned -= stolenQty;
 	if (target.owned <= 0) {
 		//some will leave
