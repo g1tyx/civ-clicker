@@ -363,7 +363,7 @@ function updatePopulationBar () {
 			h += (
 				'<div class="' + unit.id + '" '
 				+ ' style="width: ' + p + '%">'
-				+ '<span>' + (Math.round(p * 10)/10) + '% ' + unit.plural + '</span>'
+				+ '<span>' + (Math.round(p * 10)/10) + '% ' + cnItem(unit.plural) + '</span>'
 				+ '</div>'
 			);
 		}
