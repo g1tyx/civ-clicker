@@ -1359,8 +1359,8 @@ function plunder () {
 	payFor(curCiv.raid.plunderLoot,-1);  // We pay for -1 of these to receive them.
 
 	// Create message to notify player
-	plunderMsg = cnItem(civSizes[curCiv.raid.last].name) + " 失败! ";
-	plunderMsg += "掠夺 " + getReqText(curCiv.raid.plunderLoot) + ". ";
+	plunderMsg ="敌方 "+ cnItem(civSizes[curCiv.raid.last].name) + " 防守失败! ";
+	plunderMsg += "你成功掠夺了 " + getReqText(curCiv.raid.plunderLoot) + ". ";
 	gameLog(plunderMsg);
 
 	ui.show(raidNewsElt, true);
