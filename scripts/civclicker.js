@@ -1280,7 +1280,7 @@ function spawnMob(mobObj, num){
 	civData.esiege.owned += num_sge;
 
 	msg = prettify(num) + " " + cnItem(mobObj.getQtyName(num)) + " 发起攻击";  //xxx L10N
-	if (num_sge > 0) { msg += ", with " + prettify(num_sge) + " " + civData.esiege.getQtyName(num_sge); }  //xxx L10N 
+	if (num_sge > 0) { msg += ", 携带了 " + prettify(num_sge) + " " + cnItem(civData.esiege.getQtyName(num_sge)); }  //xxx L10N 
 	gameLog(msg);
 
 	return num;
@@ -1295,7 +1295,7 @@ function smiteMob(mobObj) {
 	curCiv.enemySlain.owned += num;
 	if (civData.throne.owned) { civData.throne.count += num; }
 	if (civData.book.owned) { civData.piety.owned += num * 10; }
-	gameLog("Struck down " + num + " " + mobObj.getQtyName(num)); // L10N
+	gameLog("打垮 " + num + " " + cnItem(mobObj.getQtyName(num))); // L10N
 	return num;
 }
 
@@ -2704,7 +2704,7 @@ function doEsiege(siegeObj, targetObj)
 	{
 		//the siege engines are undefended; maybe capture them.
 		if ((targetObj.alignment == "player") && civData.mathematics.owned){ //Can we use them?
-			gameLog("Captured " + prettify(siegeObj.owned) + " enemy siege engines.");
+			gameLog("俘虏了 " + prettify(siegeObj.owned) + " 个敌方攻城器械.");
 			civData.siege.owned += siegeObj.owned; //capture them
 		}
 		siegeObj.owned = 0;
@@ -2712,7 +2712,7 @@ function doEsiege(siegeObj, targetObj)
 	else if (doSiege(siegeObj, targetObj) > 0) {
 		if (targetObj.id === "fortification") {
 			updateRequirements(targetObj);
-			gameLog("Enemy siege engine damaged our fortifications");
+			gameLog("敌人的攻城器械损坏了我们的防御工事");
 		}
 	}
 }
