@@ -87,7 +87,7 @@ var cnItems = {
     'Basic Shields': '基础盾牌',
     'Basic Weaponry': '基础武器',
     'Improve soldiers': '提升士兵',
-    'improves farmers': '提高农民',
+    'improves farmers': '提高农民产量',
     'Granaries': '谷仓',
     'Slums': '贫民窟',
     'Tenements': '公寓',
