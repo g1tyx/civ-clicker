@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<!--
+	CivClicker
+	Copyright (C) 2014; see the AUTHORS file for authorship.
+
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program in the LICENSE file.
+	If it is not there, see <http://www.gnu.org/licenses/>.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb">
+<head>
+	<title>文明点击 - CivClicker</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="styles/civclicker.css" />
+	<meta name="description" content="CivClicker: Build a Civilisation In Your Browser" />
+
+	<!-- JS utilities -->
+	<script src="zh.js"></script>
+	<script type="application/javascript" src="scripts/lz-string.js"></script>
+	<script type="application/javascript" src="scripts/jsutils.js"></script>
+	<!-- Polyfill from https://developer.mozilla.org/en-US/docs/Web/API/Element.classList -->
+	<script type="application/javascript" src="scripts/classList.js"></script>
+	<script type="application/javascript" src="scripts/ui.js"></script>
+	<!-- Main program -->
+	<script type="application/javascript" src="scripts/civclicker-classes.js" defer="defer"></script>
+	<script type="application/javascript" src="scripts/civclicker-data.js" defer="defer"></script>
+	<script type="application/javascript" src="scripts/civclicker-update.js" defer="defer"></script>
+	<script type="application/javascript" src="scripts/civclicker.js" defer="defer"></script>
+</head>
+<body class="hasBackground">
+
+<div id="strip">
+	<div id="header">
+		<h1><span id="civName">Woodstock</span> 的 <span id="civType">Thorp</span>  </h1>
+		<div id="ruler">受 <span id="appellation">强大的</span> <span id="rulerName">Orteil</span> 统治</div>
+	</div>
+	<div id="stripInner">
+		<span class="title">文明点击</span>
+		<span class="version">v1.3.3</span>
+		<a href="faq.html" target="_blank">常见问题 &amp; 说明</a>
+		<a href="updates.html" target="_blank">更新日志</a>
+		<a href="https://www.reddit.com/r/CivClicker/" target="_blank">Reddit</a>
+		<a href="#" class="openSettings">设置</a>
+		<span id="versionAlert"> - <span id="newVersionText" onclick="location.reload()">新版本可用</span></span>
+	</div>
+</div>
+
+<section id="settings" class="drawer">
+	<div class="columns">
+		<div class="column left">
+			<h2>命名</h2>
+			<button onmousedown="renameCiv()" title="Rename your civilisation">重命名文明</button><br />
+			<button id="renameRuler" onmousedown="renameRuler()" title="Rename yourself">重命名自己</button><br />
+			<button id="renameDeity" onmousedown="renameDeity()" title="Rename your deity" disabled="disabled">重新命名当前的神</button>
+			<br />
+			<h2>显示</h2>
+			<span id="textSize"><button id="smallerText" onmousedown="textSize(-1)" title="Smaller Text">&minus;</button>文字大小
+			<button id="largerText" onmousedown="textSize(1)" title="Larger Text">+</button></span><br />
+			<br />
+			<label><input id="toggleCustomQuantities" type="checkbox" onclick="onToggleCustomQuantities(this)" title="Custom Quantity"/>使用自定义数量</label><br />
+			<label><input id="toggleDelimiters" type="checkbox" onclick="onToggleDelimiters(this)" title="Toggle Delimiters"/>数字分隔符</label><br />
+			<label><input id="toggleShadow" type="checkbox" onclick="onToggleShadow(this)" title="Toggle Text Shadow"/>文字阴影</label><br />
+			<label><input id="toggleNotes" type="checkbox" onclick="onToggleNotes(this)" title="Toggle Notes"/>显示日志</label><br />
+			<label><input id="toggleWorksafe" type="checkbox" onclick="onToggleWorksafe(this)" title="Toggle Worksafe Mode"/>安全模式</label><br />
+			<label><input id="toggleIcons" type="checkbox" onclick="onToggleIcons(this)" title="Toggle Icons"/>使用图标</label><br />
+		</div>
+
+		<div class="column right">
+			<h2>保存 &amp; 加载</h2>
+			<button onmousedown="save('manual')" title="Save your current stats">手动保存</button><br />
+			<label><input id="toggleAutosave" type="checkbox" onclick="onToggleAutosave(this)" title="Autosave"/>自动保存</label><br />
+			<button onmousedown="reset()" title="Reset your game">重置游戏</button><span class="note"><span id="resetNote"><br/>重置允许你 </span><span id="resetDeity">获得另一个神</span><span id="resetBoth"><br/> 和 </span><span id="resetWonder">建立另一个奇迹</span></span><br />
+			<br />
+			<button onmousedown="deleteSave()" title="Delete your saved stats">删除存档文件</button><br />
+			<br />
+			<label>保存游戏存档:</label>
+			<textarea id="impexpField"></textarea>
+			<button id="expButton" onclick="save('export')">导出</button>
+			<button id="expSelect" onclick="document.getElementById('impexpField').select();">全选</button>
+			<button id="impButton" onclick="load('import')">导入</button>
+		</div>
+	</div>
+</section>
+
+
+<div id="main" class="columns">
+<div id="leftColumn" class="column left">
+	<div id="basicResourcesContainer" class="civSection">
+		<table id="basicResources" class="resources">
+			<!-- populated by javascript -->
+		</table>
+	</div>
+	<div id="populationContainer" class="civSection">
+		<div id="populationNumbers">
+			<table class="resources">
+				<tbody>
+					<tr>
+						<td>
+							<img src="images/backup.png" class="icon icon-lg" alt="人口"/>
+							<label>人口:</label>
+						</td>
+						<td class="number"><span data-action="display_pop" data-target="living">...</span></td>
+						<td class="number maxNumber">
+							/ 最大: <span data-action="display_pop" data-target="limit">...</span>
+						</td>
+						<td class="note">
+							建造更多的住房来发展你的文明
+						</td>
+					</tr>
+					<tr id="zombieWorkers">
+						<td>
+							<img src="images/shambling-zombie.png" class="icon icon-lg" alt="僵尸"/>
+							<label>僵尸:</label>
+						</td>
+						<td class="number"><span data-action="display" data-target="zombie">...</span></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>
+							<img src="images/smitten.png" class="icon icon-lg" alt="快乐值"/>
+							<label>快乐值:</label>
+						</td>
+						<td colspan="3" id="morale">
+							<ol class="happinessRanks">
+								<li>幸福</li>
+								<li>开心</li>
+								<li>满足</li>
+								<li>不开心</li>
+								<li>生气</li>
+							</ol>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div id="jobsContainer" class="civSection">
+		<div id="populationBar" class="bar" title="Population">
+			<!-- populated by javascript -->
+		</div>
+		<div id="populationCreate">
+			<div>
+				招募新市民担任
+				<select type="dropdown" id="newSpawnJobSelection">
+					<option value="unemployed">闲置的公民</option>
+					<option value="farmer">农民</option>
+					<option value="woodcutter">伐木工</option>
+					<option value="miner">矿工</option>
+				</select>
+				<span class="cost">需要 <span id="workerCost">...</span> 食物</span><span class="note">.</span>
+				<button class="unit1" id="spawn1button" onmousedown="spawn(1)">+1</button>
+				<button class="unit10" id="spawn10button" onmousedown="spawn(10)">+10</button>
+				<button class="unit100" id="spawn100button" onmousedown="spawn(100)">+100</button>
+				<button class="unit1000" id="spawn1000button" onmousedown="spawn(1000)">+1k</button>
+				<button class="unitInfinity" id="spawnMaxbutton" onmousedown="spawn(Infinity)">+<span id="workerNumMax">最大</span></button>
+			</div>
+			<div id="customSpawnQuantity">
+				<button id="spawnCustomButton" onmousedown="spawn('custom')">招募公民</button><input id="spawnCustomQty" type="number" min="1" step="1" value="1" />
+			</div>
+		</div>
+		<p id="customJobQuantity">
+			自定义数量 <input id="homeCustomQty" type="number" min="1" step="1" value="1" />
+		</p>
+		<table id="jobs">
+			<!-- populated by javascript -->
+		</table>
+	</div>
+	<div id="eventsContainer" class="civSection">
+		<h3>事件</h3>
+		<table id="logTable">
+			<tr id="log0"><td id="logT"></td><td id="logL"></td><td id="logR"></td></tr>
+			<tr id="log1"><td colspan="3"></td></tr>
+			<tr id="log2"><td colspan="3"></td></tr>
+			<tr id="log3"><td colspan="3"></td></tr>
+			<tr id="log4"><td colspan="3"></td></tr>
+			<tr id="log5"><td colspan="3"></td></tr>
+			<tr id="log6"><td colspan="3"></td></tr>
+			<!-- 
+			<tr id="log7"><td colspan="3"></td></tr>
+			<tr id="log8"><td colspan="3"></td></tr>
+			<tr id="log9"><td colspan="3"></td></tr> -->
+		</table>
+	</div>
+</div>
+
+<div id="rightColumn" class="column right">
+	<div id="specialResourcesContainer" class="civSection">
+		<table class="resources">
+			<tbody>
+				<tr>
+					<td>
+						<img src="images/skins.png" class="icon icon-lg" alt="Skins"/>
+						<label>皮毛:</label>
+					</td>
+					<td>
+						<span class="number" data-action="display" data-target="skins">0</span>
+					</td>
+					<td>
+						<span class="number net" data-action="displayNet" data-target="skins">0</span><span class="perSecond">/秒</span>
+					</td>
+					<td>
+						<img src="images/leather.png" class="icon icon-lg" alt="Leather"/>
+						<label>皮革:</label>
+					</td>
+					<td>
+						<span class="number" data-action="display" data-target="leather">0</span>
+					</td>
+					<td>
+						<span class="number net" data-action="displayNet" data-target="leather">0</span><span class="perSecond">/秒</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<img src="images/herbs.png" class="icon icon-lg" alt="Herbs"/>
+						<label>草药:</label>
+					</td>
+					<td>
+						<span class="number" data-action="display" data-target="herbs">0</span>
+					</td>
+					<td>
+						<span class="number net" data-action="displayNet" data-target="herbs">0</span><span class="perSecond">/秒</span>
+					</td>
+					<td>
+						<img src="images/piety.png" class="icon icon-lg" alt="Piety"/>
+						<label>虔诚:</label>
+					</td>
+					<td>
+						<span class="number" data-action="display" data-target="piety">0</span>
+					</td>
+					<td>
+						<span class="number net" data-action="displayNet" data-target="piety">0</span><span class="perSecond">/秒</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<img src="images/ore.png" class="icon icon-lg" alt="Ore"/>
+						<label>矿石:</label>
+					</td>
+					<td>
+						<span class="number" data-action="display" data-target="ore">0</span>
+					</td>
+					<td>
+						<span class="number net" data-action="displayNet" data-target="ore">0</span><span class="perSecond">/秒</span>
+					</td>
+					<td>
+						<img src="images/metal.png" class="icon icon-lg" alt="Metal"/>
+						<label>金属:</label>
+					</td>
+					<td>
+						<span class="number" data-action="display" data-target="metal">0</span>
+					</td>
+					<td>
+						<span class="number net" data-action="displayNet" data-target="metal">0</span><span class="perSecond">/秒</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<img src="images/gold.png" class="icon icon-lg" alt="Gold" />
+						<label>黄金:</label>
+					</td>
+					<td colspan="2">
+						<span class="number" data-action="display" data-target="gold">0</span>
+					</td>
+					<td>
+						<img src="images/carrion.png" class="icon icon-lg" alt="Corpses">
+						<label>尸体:</label>
+					</td>
+					<td colspan="2">
+						<span class="number" data-action="display" data-target="corpses">0</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<div id="panesSelectors" class="civSection">
+		<div id="selectors" class="panesTabs">
+			<div id="buildingsSelect" class="paneSelector selected" data-target="buildingsPane" onclick="paneSelect(this)">
+				建造
+				<div class="alert">!</div>
+			</div>
+			<div id="upgradesSelect" class="paneSelector" data-target="upgradesPane" onclick="paneSelect(this)">
+				升级
+				<div class="alert">!</div>
+			</div>
+			<div id="deitySelect" class="paneSelector" data-target="deityPane" onclick="paneSelect(this)">
+				神祗
+				<div class="alert">!</div>
+			</div>
+			<div id="conquestSelect" class="paneSelector" data-target="conquestPane" onclick="paneSelect(this)">
+				征服
+				<div class="alert">!</div>
+			</div>
+			<div id="tradeSelect" class="paneSelector" data-target="tradePane" onclick="paneSelect(this)">
+				贸易
+				<div class="alert">!</div>
+			</div>
+			<div id="achievementsSelect" class="paneSelector" data-target="achievementsPane" onclick="paneSelect(this)">
+				成就
+				<div class="alert">!</div>
+			</div>
+		</div>
+		
+		<div id="buildingsPane" class="selectPane selected">
+			<div class="landCols cols">
+				<div class="col">
+					总建筑数量: <span id="totalBuildings">...</span><br />
+				</div>
+				<div class="col">
+					总计领土: <span id="totalLand">...</span><br />
+				</div>
+			</div>
+			<div id="landBar" class="bar" title="Land usage">
+				<!-- populated by javascript -->
+			</div>
+			<p id="customBuildQuantity">
+				自定义数量 <input id="buildingCustomQty" type="number" min="1" step="1" value="1" />
+			</p>
+			<table id="buildings">
+				<!-- populated by javascript -->
+			</table>
+			<div id="graveTotal">
+				空的坟墓: <span data-action="display" data-target="grave">...</span>
+			</div>
+		</div>
+		
+		<div id="upgradesPane" class="selectPane">
+			<div id="wondersContainer">
+				<h3>奇迹</h3>
+				<span id="startWonderLine"><button id="startWonder" onmousedown="startWonder()">开始建造奇迹</button></span>
+				<div id="wonderInProgress">
+					<span class="wonderTitle">建造进度 <span id="wonderNameP">奇迹</span> - <span id="progressNumber">0</span>%</span> - <button id="renameWonder" onmousedown="renameWonder()">重命名</button>
+					<div id="progressContainer"><div id="progressBar"></div></div>
+					<div id="lowResources">限制于<span id="limited"> 低资源</span></div>
+					<div id="speedWonderGroup"><br /><button id="speedWonder" onmousedown="speedWonder()">奇迹速度</button>
+					<span id="speedWonderCost" class="cost">100 黄金</span><span class="note">: 提高奇迹进度</span></div>
+				</div>
+				<div id="wonderCompleted">
+					<div class="wonderTitle"><span id="wonderNameC">奇迹</span> 完成了! 选择奖励:</div>
+				</div>
+				<table id="pastWonders"><tr><td></td></tr></table>
+			</div>
+			<table id="upgrades"></table>
+		</div>
+		
+		<div id="deityPane" class="selectPane">
+			<div class="notYet">
+				你们的文明还没有崇拜神。
+				<span class="tip">你需要通过在寺庙指派牧师来增加虔诚。</span>
+			</div>
+			<div id="deityContainer">
+				<h3>目前的神</h3>
+				<table id="activeDeity">
+					<!-- populated by javascript -->
+				</table>
+			</div>
+			<span id="walkGroup"><br />行走: <span id="walkStat">...</span> 工人每秒钟<br /></span>
+			<div id="worshipRow">
+				<!-- populated by updatePurchaseRow -->
+			</div>
+			<div id="deityDomains">
+				<p>
+					你只能为你的神选择一个领域:
+				</p>
+				<ul>
+					<li id="battleRow" class="purchaseRow" data-target="battle"> 
+						<span class="upgradetrue" data-quantity="true">
+							<button id="battleDeity" class="xtrue purchaseFor500Piety" onmousedown="selectDeity('battle')">战斗</button>
+						</span>
+						<span id="battleCost" class="cost">500 虔诚</span>
+					</li>
+					<li id="fieldsRow" class="purchaseRow" data-target="fields">
+						<span class="upgradetrue" data-quantity="true">
+							<button id="fieldsDeity" class="xtrue purchaseFor500Piety" onmousedown="selectDeity('fields')">领域</button>
+						</span>
+						<span id="fieldsCost" class="cost">500 虔诚</span>
+					</li>		
+					<li id="underworldRow" class="purchaseRow" data-target="underworld">
+						<span class="upgradetrue" data-quantity="true">
+							<button id="underworldDeity" class="xtrue purchaseFor500Piety" onmousedown="selectDeity('underworld')">冥界</button>
+						</span>
+						<span id="underworldCost" class="cost">500 虔诚</span>
+					</li>
+					<li id="catsRow" class="purchaseRow" data-target="cats">
+						<span class="upgradetrue" data-quantity="true">
+							<button id="catsDeity" class="xtrue purchaseFor500Piety" onmousedown="selectDeity('cats')">猫</button>
+						</span>
+						<span id="catsCost" class="cost">500 虔诚</span>
+					</li>
+				</ul>
+			</div>
+			<div id="battleUpgrades">
+				<h3>战斗的力量</h3>
+				<table>
+					<tr id="battleAltarRow"><td></td></tr>
+					<tr id="riddleRow"><td></td></tr>
+					<tr id="smiteRow"><td></td></tr>
+					<tr id="throneRow"><td></td></tr>
+					<tr id="gloryRow"><td></td></tr>
+					<tr id="lamentRow"><td></td></tr>
+				</table>
+			</div>
+			<div id="fieldsUpgrades">
+				<h3>领域的赏金</h3>
+				<table>
+					<tr id="fieldsAltarRow"><td></td></tr>
+					<tr id="blessingRow"><td></td></tr>
+					<tr id="wickermanRow"><td></td></tr>
+					<tr id="wasteRow"><td></td></tr>
+					<tr id="walkRow"><td></td></tr>
+					<tr id="stayRow"><td></td></tr>
+				</table>
+			</div>
+			<div id="underworldUpgrades">
+				<h3>地狱的恐惧力量</h3>
+				<table>
+					<tr id="underworldAltarRow"><td></td></tr>
+					<tr id="bookRow"><td></td></tr>
+					<tr id="raiseDeadRow"><td></td></tr>
+					<tr id="feastRow"><td></td></tr>
+					<tr id="summonShadeRow"><td></td></tr>
+					<tr id="secretsRow"><td></td></tr>
+				</table>
+			</div>
+			<div id="catsUpgrades">
+				<h3>猫的恩典</h3>
+				<table>
+					<tr id="catAltarRow"><td></td></tr>
+					<tr id="lureRow"><td></td></tr>
+					<tr id="pestControlRow"><td></td></tr>
+					<tr id="companionRow"><td></td></tr>
+					<tr id="graceRow"><td></td></tr>
+					<tr id="comfortRow"><td></td></tr>
+				</table>
+			</div>
+			<div id="pantheonContainer">
+				<h3>万神殿</h3>
+				<table id="oldDeities"><tr><td></td></tr></table>
+			</div>
+			<div id="iconoclasmGroup">
+				<button id="iconoclasm" onmousedown="iconoclasmList()">破坏圣像</button>
+				<span id="iconoclasmCost" class="cost">1,000 虔诚</span>
+				<span id="iconoclasmNote" class="note">: 移除一个老神来获得金币</span><br />
+				<div id="iconoclasmList"></div>
+			</div>
+			<div id="pantheonUpgrades">
+				<h3>万神殿升级</h3>
+				<div id="purchasedPantheon"></div>
+			</div>
+		</div>
+		<div id="conquestPane" class="selectPane">
+			<div class="notYet">
+				你还不能指挥军队，因为你没有作战标准。
+				<span class="tip">首先尝试建造兵营.</span>
+			</div>
+			<span id="standardRow">
+				<!--  -->
+			</span>
+			<div id="conquest">
+				<h3>军队</h3>
+				<p id="customPartyQuantity">
+					自定义数量 <input id="partyCustomQty" type="number" min="1" step="1" value="1" />
+				</p>
+				<table id="party">
+					<!-- populated by javascript -->
+				</table>
+				<div id="raidNews">
+					<!-- -->
+				</div>
+				<div id="raidGroup">
+					<h3>战争!</h3>
+					<p id="gloryGroup">
+						荣耀: <span id="gloryTimer">0</span> 秒剩余时间
+					</p>
+				</div>
+				<div id="victoryGroup">
+					<h3>胜利!</h3>
+					<button id="plunder" onmousedown="plunder()">掠夺资源</button><br />
+				</div>
+			</div>
+			<div class="stats">
+				被杀死的总敌人: <span data-action="display" data-target="enemySlain">...</span>
+			</div>
+		</div>
+		<div id="tradePane" class="selectPane">
+			<div class="notYet">
+				你还没有一个贸易站。 <span class="tip">当商人(随机)出现时，尝试与他们进行交易。</span>
+			</div>
+			<div id="tradeContainer">
+				卖出 <span id="tradeRequested">...</span> <span id="tradeType">...</span> 可以得到1黄金
+				距离商人离开还有 <span id="traderTimer">...</span>.
+				<br />
+				<button id="tradeButton" onmousedown="trade()">贸易</button>
+			</div>
+			<div id="noTrader">
+				没有商人来访
+			</div>
+			<span id="tradeRow">
+				<!-- populated by javascript -->
+			</span>
+			<div id="tradeUpgradeContainer">
+				<span id="currencyRow"></span>
+				<span id="commerceRow"></span>
+				<h4>购买资源 (1 黄金)</h4>
+				<button class="tradeResource" onmousedown="buy('food')">购买 5000 食物</button><br />
+				<button class="tradeResource" onmousedown="buy('wood')">购买 5000 木头</button><br />
+				<button class="tradeResource" onmousedown="buy('stone')">购买 5000 石头</button><br />
+				<button class="tradeResource" onmousedown="buy('skins')">购买 500 皮毛</button><br />
+				<button class="tradeResource" onmousedown="buy('herbs')">购买 500 草药</button><br />
+				<button class="tradeResource" onmousedown="buy('ore')">购买 500 矿石</button><br />
+				<button class="tradeResource" onmousedown="buy('leather')">购买 250 皮革</button><br />
+				<button class="tradeResource" onmousedown="buy('metal')">购买 250 金属</button><br />
+			</div>
+		</div>
+		<div id="achievementsPane" class="selectPane">
+			<div id="achievements">
+				<!-- populated by javascript -->
+			</div>
+			<div class="stats">
+				资源点击次数: <span id="clicks">0</span>
+			</div>
+		</div>
+	</div>
+
+</div>
+</div>
+<footer>
+	<!--
+	<span class="title">CivClicker v1.2</span>
+	<a href="http://dhmstark.co.uk/games/civclicker/">Original 1.0 Game</a>
+	<a href="faq.html">FAQ</a>
+	<a href="updates.html">Updates</a>
+	<a href="https://github.com/deathraygames/civ-clicker/">Source</a>
+	<a href="https://www.reddit.com/r/CivClicker/">Reddit</a>
+	-->
+</footer>
+<div class="scripts">
+	<!-- Google Analytics. REMOVE this for your own forks. -->
+<!--	<script src="../../js/ga.js"></script>-->
+</div>
+<!--客服 开始-->
+<script src="//g8hh.com/static/js/jquery.min.js"></script>
+<link rel="stylesheet" href="//g8hh.com/static/css/kf.css" type="text/css" media="screen" charset="utf-8">
+<script src="//g8hh.com/static/js/kf.js"></script>
+<!-- 客服 结束 -->
+<!--站长统计--> 
+<div style="display: none">
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?028b1b5f659ed138230f4cafd7ad0dfc";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    </div>
+</body>
+</html>
